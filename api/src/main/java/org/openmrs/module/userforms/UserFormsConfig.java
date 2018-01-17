@@ -16,6 +16,13 @@ import org.springframework.stereotype.Component;
  */
 @Component("userforms.UserFormsConfig")
 public class UserFormsConfig {
-	
-	public final static String MODULE_PRIVILEGE = "User Forms Privilege";
+
+	public final static String ADD_USER_FORMS = "Add User Forms";
+	public final static String EDIT_USER_FORMS = "Edit User Forms";
+	public final static String DELETE_USER_FORMS = "Delete User Forms";
+	public final static String VIEW_USER_FORMS = "View User Forms";
+	public final static String ADD_USER_OBS = "Add User Obs";
+	public final static String EDIT_USER_OBS = "Edit User Obs";
+	public final static String DELETE_USER_OBS = "Delete User Obs";
+	public final static String VIEW_USER_OBS = "View User Obs";
 }

@@ -12,7 +12,7 @@ package org.openmrs.module.userforms.api.impl;
 import org.openmrs.api.APIException;
 import org.openmrs.api.UserService;
 import org.openmrs.api.impl.BaseOpenmrsService;
-import org.openmrs.module.userforms.Item;
+import org.openmrs.module.userforms.UserForm;
 import org.openmrs.module.userforms.api.UserFormsService;
 import org.openmrs.module.userforms.api.dao.UserFormsDao;
 
@@ -37,16 +37,15 @@ public class UserFormsServiceImpl extends BaseOpenmrsService implements UserForm
 	}
 	
 	@Override
-	public Item getItemByUuid(String uuid) throws APIException {
+	public UserForm getItemByUuid(String uuid) throws APIException {
 		return dao.getItemByUuid(uuid);
 	}
 	
 	@Override
-	public Item saveItem(Item item) throws APIException {
-		if (item.getOwner() == null) {
-			item.setOwner(userService.getUser(1));
+	public UserForm saveItem(UserForm userForm) throws APIException {
+		if (userForm.getUser() == null) {
+			userForm.setUser(userService.getUser(1));
 		}
-		
-		return dao.saveItem(item);
+		return dao.saveItem(userForm);
 	}
 }

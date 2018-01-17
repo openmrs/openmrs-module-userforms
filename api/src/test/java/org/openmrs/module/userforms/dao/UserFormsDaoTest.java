@@ -7,17 +7,20 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.userforms.api.dao;
+package org.openmrs.module.userforms.dao;
 
-import org.junit.Test;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
 import org.junit.Ignore;
+import org.junit.Test;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.userforms.Item;
+import org.openmrs.module.userforms.UserForm;
+import org.openmrs.module.userforms.api.dao.UserFormsDao;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 
 /**
  * It is an integration test (extends BaseModuleContextSensitiveTest), which verifies DAO methods
@@ -34,12 +37,12 @@ public class UserFormsDaoTest extends BaseModuleContextSensitiveTest {
 	UserService userService;
 	
 	@Test
-	@Ignore("Unignore if you want to make the Item class persistable, see also Item and liquibase.xml")
+	@Ignore("Unignore if you want to make the UserForm class persistable, see also UserForm and liquibase.xml")
 	public void saveItem_shouldSaveAllPropertiesInDb() {
 		//Given
-		Item item = new Item();
+		UserForm item = new UserForm();
 		item.setDescription("some description");
-		item.setOwner(userService.getUser(1));
+		item.setUser(userService.getUser(1));
 		
 		//When
 		dao.saveItem(item);
@@ -49,10 +52,10 @@ public class UserFormsDaoTest extends BaseModuleContextSensitiveTest {
 		Context.clearSession();
 		
 		//Then
-		Item savedItem = dao.getItemByUuid(item.getUuid());
+		UserForm savedItem = dao.getItemByUuid(item.getUuid());
 		
 		assertThat(savedItem, hasProperty("uuid", is(item.getUuid())));
-		assertThat(savedItem, hasProperty("owner", is(item.getOwner())));
+		assertThat(savedItem, hasProperty("user", is(item.getUser())));
 		assertThat(savedItem, hasProperty("description", is(item.getDescription())));
 	}
 }

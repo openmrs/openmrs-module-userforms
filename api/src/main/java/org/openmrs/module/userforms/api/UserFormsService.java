@@ -13,7 +13,7 @@ import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.userforms.UserFormsConfig;
-import org.openmrs.module.userforms.Item;
+import org.openmrs.module.userforms.UserForm;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -32,7 +32,7 @@ public interface UserFormsService extends OpenmrsService {
 	 */
 	@Authorized()
 	@Transactional(readOnly = true)
-	Item getItemByUuid(String uuid) throws APIException;
+	UserForm getItemByUuid(String uuid) throws APIException;
 	
 	/**
 	 * Saves an item. Sets the owner to superuser, if it is not set. It can be called by users with
@@ -42,7 +42,7 @@ public interface UserFormsService extends OpenmrsService {
 	 * @return
 	 * @throws APIException
 	 */
-	@Authorized(UserFormsConfig.MODULE_PRIVILEGE)
+	@Authorized(UserFormsConfig.ADD_USER_FORMS)
 	@Transactional
-	Item saveItem(Item item) throws APIException;
+	UserForm saveItem(UserForm item) throws APIException;
 }

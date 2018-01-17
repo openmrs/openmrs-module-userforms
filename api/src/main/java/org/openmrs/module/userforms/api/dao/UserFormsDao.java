@@ -9,10 +9,10 @@
  */
 package org.openmrs.module.userforms.api.dao;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.openmrs.api.db.hibernate.DbSession;
-import org.openmrs.api.db.hibernate.DbSessionFactory;
-import org.openmrs.module.userforms.Item;
+import org.openmrs.module.userforms.UserForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,17 +20,17 @@ import org.springframework.stereotype.Repository;
 public class UserFormsDao {
 	
 	@Autowired
-	DbSessionFactory sessionFactory;
+	SessionFactory sessionFactory;
 	
-	private DbSession getSession() {
+	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 	
-	public Item getItemByUuid(String uuid) {
-		return (Item) getSession().createCriteria(Item.class).add(Restrictions.eq("uuid", uuid)).uniqueResult();
+	public UserForm getItemByUuid(String uuid) {
+		return (UserForm) getSession().createCriteria(UserForm.class).add(Restrictions.eq("uuid", uuid)).uniqueResult();
 	}
 	
-	public Item saveItem(Item item) {
+	public UserForm saveItem(UserForm item) {
 		getSession().saveOrUpdate(item);
 		return item;
 	}
